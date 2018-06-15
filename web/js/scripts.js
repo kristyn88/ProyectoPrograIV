@@ -7,6 +7,7 @@ function cargarOpciones(textoJSON) {
     datos = JSON.parse(textoJSON);//Datos no es un array, es un objeto con un array
 
     var refMenu = document.getElementById("categorias");
+    var refMenu2 = document.getElementById("subCategorias");
 
 
     while (refMenu.length > 0) {
@@ -17,6 +18,18 @@ function cargarOpciones(textoJSON) {
             var nuevaOpcion = document.createElement("OPTION");
             nuevaOpcion.setAttribute("value", datos.opciones[i].valor);
             nuevaOpcion.appendChild(document.createTextNode(datos.opciones[i].texto));
+            refMenu.appendChild(nuevaOpcion);
+        }
+    }
+    
+     while (refMenu2.length > 0) {
+        refMenu2.remove(refMenu2.length - 1);
+    }
+    if (refMenu2) {
+        for (var i = 0; i < datos.opciones2.length; i++) {
+            var nuevaOpcion = document.createElement("OPTION");
+            nuevaOpcion.setAttribute("value", datos.opciones2[i].valor);
+            nuevaOpcion.appendChild(document.createTextNode(datos.opciones2[i].texto));
             refMenu.appendChild(nuevaOpcion);
         }
     }

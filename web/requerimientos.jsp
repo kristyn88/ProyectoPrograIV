@@ -57,6 +57,9 @@
                                     <td>
                                         <select id="categorias"></select>
                                     </td>
+                                    <td>
+                                        <select id="subCategorias"></select>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

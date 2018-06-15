@@ -38,6 +38,7 @@ public class RegistroRequerimientos1 extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             JSONObject obj = new JSONObject();//Crea un objeto JSON
             JSONArray opciones = new JSONArray();//Array del Objeto JSON para provincias
+            JSONArray opciones2 = new JSONArray();//Array del Objeto JSON para provincias
             
             
             for(int i = 0; i < modelo.DAO.ConjuntoCategorias.obtenerInstancia().obtenerCategorias().size(); i++){
@@ -47,12 +48,21 @@ public class RegistroRequerimientos1 extends HttpServlet {
                 opciones.put(opc);
             }
             
+            
+            for(int i = 0; i < modelo.DAO.ConjuntoSubCategorias.obtenerInstancia().obtenerSubCategorias().size(); i++){
+                JSONObject opc = new JSONObject();
+                opc.put("valor", modelo.DAO.ConjuntoSubCategorias.obtenerInstancia().obtenerSubCategorias().get(i).getId_subCategoria());
+                opc.put("texto", modelo.DAO.ConjuntoSubCategorias.obtenerInstancia().obtenerSubCategorias().get(i).getNombre_subCategoria());
+                opciones2.put(opc);
+            }
+            
             JSONObject nombre = new JSONObject();
             nombre.put("valor", modelo.DAO.ConjuntoPuestos.obtenerInstancia().obtenerMayorId());
             nombre.put("texto", modelo.DAO.ConjuntoPuestos.obtenerInstancia().obtenerMayorNombre());
 
             
             obj.put("opciones", opciones);
+            obj.put("opciones2",opciones2);
             obj.put("nombre", nombre);
             out.println(obj);//Representacion del objeto usando un formato JSON
         }
