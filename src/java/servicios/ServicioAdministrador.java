@@ -44,7 +44,7 @@ public class ServicioAdministrador extends HttpServlet {
             response.sendRedirect("CrearCategoria.jsp");
         }
         else if(opcion==2){
-            response.sendRedirect("ElegirCategoria.jsp");
+            response.sendRedirect("registrarHabilidad.jsp");
         }
         else if(opcion==3){
             modelo.Elementos.administrador_autorizando=1;

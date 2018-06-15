@@ -12,6 +12,14 @@
         <servlet-name>Registro1</servlet-name>
         <servlet-class>servicios.Registro1</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServicioCategorias</servlet-name>
+        <servlet-class>servicios.ServicioCategorias</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServicioSubCategorias</servlet-name>
+        <servlet-class>servicios.ServicioSubCategorias</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistroOferente</servlet-name>
         <url-pattern>/RegistroOferente</url-pattern>
@@ -23,6 +31,14 @@
     <servlet-mapping>
         <servlet-name>Registro1</servlet-name>
         <url-pattern>/Registro1</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServicioCategorias</servlet-name>
+        <url-pattern>/ServicioCategorias</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServicioSubCategorias</servlet-name>
+        <url-pattern>/ServicioSubCategorias</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

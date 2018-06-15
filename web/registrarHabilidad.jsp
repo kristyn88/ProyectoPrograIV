@@ -1,8 +1,3 @@
-<%-- 
-    Document   : ElegirCategoria
-    Created on : 16-abr-2018, 2:05:05
-    Author     : krist
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

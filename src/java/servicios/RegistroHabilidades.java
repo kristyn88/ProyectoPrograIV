@@ -45,7 +45,7 @@ public class RegistroHabilidades extends HttpServlet {
             if(eleccion==1){
                 //Quiere integrar habilidades
                 modelo.Elementos.oferente_registrando=1;
-                response.sendRedirect("ElegirCategoria.jsp");
+                response.sendRedirect("ElegirHabilidad.jsp");
             }else{
                 response.sendRedirect("Oferente.jsp");
             }

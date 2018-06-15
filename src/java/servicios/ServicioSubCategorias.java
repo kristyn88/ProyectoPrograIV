@@ -7,21 +7,20 @@ package servicios;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.SubCategoria;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
  *
- * @author krist
+ * @author Kristyn
  */
-@WebServlet(name = "RegistroRequerimientos1", urlPatterns = {"/RegistroRequerimientos1"})
-public class RegistroRequerimientos1 extends HttpServlet {
+public class ServicioSubCategorias extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,24 +33,21 @@ public class RegistroRequerimientos1 extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            JSONObject obj = new JSONObject();//Crea un objeto JSON
+            JSONObject obj2 = new JSONObject();//Crea un objeto JSON
             JSONArray opciones = new JSONArray();//Array del Objeto JSON para provincias
-            JSONArray opciones2 = new JSONArray();//Array del Objeto JSON para provincias
-            
-            
-            for(int i = 0; i < modelo.DAO.ConjuntoCategorias.obtenerInstancia().obtenerCategorias().size(); i++){
-                JSONObject opc = new JSONObject();//Objetos JSON dentro del Array Opciones
-                opc.put("valor", modelo.DAO.ConjuntoCategorias.obtenerInstancia().obtenerCategorias().get(i).getId_categoria());
-                opc.put("texto", modelo.DAO.ConjuntoCategorias.obtenerInstancia().obtenerCategorias().get(i).getNombre_categoria());
+
+            int categoria = Integer.parseInt(request.getParameter("categoria"));
+            List<SubCategoria> subcategorias = modelo.DAO.ConjuntoSubCategorias.obtenerInstancia().obtenerSubCategorias(categoria);
+            for (int i = 0; i < subcategorias.size(); i++) {
+                JSONObject opc = new JSONObject();
+                opc.put("valor", subcategorias.get(i).getId_subCategoria());
+                opc.put("texto", subcategorias.get(i).getNombre_subCategoria());
                 opciones.put(opc);
             }
-           
-            
-            obj.put("opciones", opciones);
-            obj.put("opciones2",opciones2);
-            out.println(obj);//Representacion del objeto usando un formato JSON
+            obj2.put("subcategoria", opciones);
+            out.print(obj2);
         }
     }
 
