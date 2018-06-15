@@ -17,29 +17,28 @@
             <header></header>
             <div id="contents">
                 <h1>Bienvenido Oferente</h1>
-                <form i="FormularioOferente" action="RegistroHabilidades" method="GET">
-                    <table id="tablaFormulario">
-                        <thead>
+                <section class="section">
+                    <center>
+                        <h1><span>Bienvenido Oferente!</span></h1>
+                        <table width="65%" cellpadding="8">
                             <tr>
-                                <th colspan="2">Transacciones Posibles</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="campo">
-                                    <input type="radio" id="opcion_00" name="opcionO" value="1" />
-                                    <label for="opcion_00">Registrar habilidad</label><br />
+                                <td>
+                                    <a href="ElegirHabilidad.jsp"><button class="submit">Registrar Habilidad</button></a>
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2" class="controles">
-                                    <input type="reset" value="Borrar" />
-                                    <input type="submit" value="Enviar" />
+                                <td>
+                                    <a href="buscar.jsp"><button class="submit">Buscar Puestos</button></a>
                                 </td>
                             </tr>
-                        </tbody>
-                    </table>
-                </form>
+                            <tr>
+                                <td>
+                                    <a href="Curriculum.jsp"><button class="submit">Subir Curriculo</button></a>
+                                </td>
+                            </tr>
+                        </table>
+                    </center>
+                </section>
             </div>
             <p>
                 Su sesion es:

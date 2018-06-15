@@ -55,6 +55,12 @@
     <servlet-mapping>
         <servlet-name>AutorizarOf</servlet-name>
         <url-pattern>/AutorizarOf</url-pattern>
+        <servlet-name>ServicioCategorias</servlet-name>
+        <url-pattern>/ServicioCategorias</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServicioSubCategorias</servlet-name>
+        <url-pattern>/ServicioSubCategorias</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

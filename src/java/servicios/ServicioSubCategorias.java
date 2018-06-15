@@ -7,18 +7,20 @@ package servicios;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.SubCategoria;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
- * @author krist
+ * @author Kristyn
  */
-@WebServlet(name = "ServicioAdministrador", urlPatterns = {"/ServicioAdministrador"})
-public class ServicioAdministrador extends HttpServlet {
+public class ServicioSubCategorias extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,31 +33,21 @@ public class ServicioAdministrador extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int opcion;
-        try{
-            opcion = Integer.parseInt(request.getParameter("opcionA"));
-        }catch(Exception ex){
-            opcion = 0;
-        }
-        if(opcion==1){
-            //Agrega una nueva categoria
-            modelo.Elementos.administrador_trabajando=1;
-            modelo.Elementos.oferente_registrando=0;
-            response.sendRedirect("CrearCategoria.jsp");
-        }
-        else if(opcion==2){
-            response.sendRedirect("registrarHabilidad.jsp");
-        }
-        else if(opcion==3){
-            modelo.Elementos.administrador_autorizando=1;
-            response.sendRedirect("AutorizarEmpresa.jsp");
-        }
-        else if(opcion==4){
-            modelo.Elementos.administrador_autorizando=2;
-            response.sendRedirect("AutorizarOferente.jsp");
-        }
-        else{
-            response.sendRedirect("Administrador.jsp");
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            JSONObject obj2 = new JSONObject();//Crea un objeto JSON
+            JSONArray opciones = new JSONArray();//Array del Objeto JSON para provincias
+//
+//            int categoria = Integer.parseInt(request.getParameter("categoria"));
+//            List<SubCategoria> subcategorias = modelo.DAO.ConjuntoSubCategorias.obtenerInstancia().obtenerSubCategorias(categoria);
+//            for (int i = 0; i < subcategorias.size(); i++) {
+//                JSONObject opc = new JSONObject();
+//                opc.put("valor", subcategorias.get(i).getId_subCategoria());
+//                opc.put("texto", subcategorias.get(i).getNombre_subCategoria());
+//                opciones.put(opc);
+//            }
+            obj2.put("subcategoria", opciones);
+            out.print(obj2);
         }
     }
 
