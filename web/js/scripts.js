@@ -3,6 +3,14 @@ function init() {
     console.log("Inicializando....");
 }
 
+function cargarPendientes(){
+    loadJSON(cargarOpciones2, "Autorizar");
+}
+
+function cargarOferentesPendientes(){
+    loadJSON(cargarOpciones3, "AutorizarOf");
+}
+
 function cargarOpciones(textoJSON) {
     datos = JSON.parse(textoJSON);//Datos no es un array, es un objeto con un array
 
@@ -39,4 +47,170 @@ function cargarOpciones(textoJSON) {
         nombre.innerHTML = datos.nombre.texto;
     }
     
+}
+
+
+
+function cargarOpciones2(textoJSON) {
+    datos = JSON.parse(textoJSON);//Datos no es un array, es un objeto con un array
+
+    var refTabla = document.getElementById("bodyAutorizarE");
+
+    if (refTabla) {
+
+        refTabla.innerHTML = "";
+
+        for (var i = 0; i < datos.opciones.length; i++) {
+                var nuevaFila = refTabla.insertRow(-1);
+                
+                var nuevaCelda = nuevaFila.insertCell(-1);
+                var checkbox = document.createElement("INPUT");
+                checkbox.type = "checkbox";
+                checkbox.id = datos.opciones[i].id;
+                nuevaCelda.appendChild(checkbox);
+                //Celda del checkbox
+                
+                var nuevaCelda1 = nuevaFila.insertCell(-1);
+                nuevaCelda1.innerHTML = datos.opciones[i].id;
+                var nuevaCelda2 = nuevaFila.insertCell(-1);
+                nuevaCelda2.innerHTML = datos.opciones[i].nombre;
+                var nuevaCelda3 = nuevaFila.insertCell(-1);
+                nuevaCelda3.innerHTML = datos.opciones[i].localizacion;
+                var nuevaCelda4 = nuevaFila.insertCell(-1);
+                nuevaCelda4.innerHTML = datos.opciones[i].correo;
+                var nuevaCelda5 = nuevaFila.insertCell(-1);
+                nuevaCelda5.innerHTML = datos.opciones[i].telefono;
+                var nuevaCelda6 = nuevaFila.insertCell(-1);
+                nuevaCelda6.innerHTML = datos.opciones[i].descripcion;
+                var nuevaCelda7 = nuevaFila.insertCell(-1);
+                nuevaCelda7.innerHTML = datos.opciones[i].clave;
+                var nuevaCelda8 = nuevaFila.insertCell(-1);
+                nuevaCelda8.innerHTML = datos.opciones[i].fechaRegistro;
+                var nuevaCelda9 = nuevaFila.insertCell(-1);
+                nuevaCelda9.innerHTML = datos.opciones[i].estado;
+                var nuevaCelda10 = nuevaFila.insertCell(-1);
+                nuevaCelda10.innerHTML = datos.opciones[i].usuario;
+        }
+        if(datos.opciones.length<1){
+            var nuevaFila = refTabla.insertRow(-1);
+            var nuevaCelda10 = nuevaFila.insertCell(-1);
+            nuevaCelda10.innerHTML = "No hay empresas pendientes...";
+        }
+    }
+}
+
+
+function cargarOpciones3(textoJSON) {
+    datos = JSON.parse(textoJSON);//Datos no es un array, es un objeto con un array
+
+    var refTabla = document.getElementById("bodyAutorizarO");
+
+    if (refTabla) {
+
+        refTabla.innerHTML = "";
+
+        for (var i = 0; i < datos.opciones.length; i++) {
+                var nuevaFila = refTabla.insertRow(-1);
+                
+                var nuevaCelda = nuevaFila.insertCell(-1);
+                var checkbox = document.createElement("INPUT");
+                checkbox.type = "checkbox";
+                checkbox.id = datos.opciones[i].id;
+                nuevaCelda.appendChild(checkbox);
+                //Celda del checkbox
+                
+                var nuevaCelda1 = nuevaFila.insertCell(-1);
+                nuevaCelda1.innerHTML = datos.opciones[i].id;
+                var nuevaCelda2 = nuevaFila.insertCell(-1);
+                nuevaCelda2.innerHTML = datos.opciones[i].nombre;
+                var nuevaCelda3 = nuevaFila.insertCell(-1);
+                nuevaCelda3.innerHTML = datos.opciones[i].apellido;
+                var nuevaCelda4 = nuevaFila.insertCell(-1);
+                nuevaCelda4.innerHTML = datos.opciones[i].nacionalidad;
+                var nuevaCelda5 = nuevaFila.insertCell(-1);
+                nuevaCelda5.innerHTML = datos.opciones[i].telefono;
+                var nuevaCelda6 = nuevaFila.insertCell(-1);
+                nuevaCelda6.innerHTML = datos.opciones[i].correo;
+                var nuevaCelda7 = nuevaFila.insertCell(-1);
+                nuevaCelda7.innerHTML = datos.opciones[i].residencia;
+                var nuevaCelda8 = nuevaFila.insertCell(-1);
+                nuevaCelda8.innerHTML = datos.opciones[i].estado;
+                var nuevaCelda9 = nuevaFila.insertCell(-1);
+                nuevaCelda9.innerHTML = datos.opciones[i].usuario;
+        }
+        if(datos.opciones.length<1){
+            var nuevaFila = refTabla.insertRow(-1);
+            var nuevaCelda10 = nuevaFila.insertCell(-1);
+            nuevaCelda10.innerHTML = "No hay oferentes pendientes...";
+        }
+    }
+}
+
+
+function mandarAutorizacionEmpresa(){
+    var refTable = document.getElementById("bodyAutorizarE");
+    var tipo ="1";//Tipo de autorizacion para empresas
+    if(refTable){
+        for(var i = 0; i < refTable.rows.length; i++){
+            var cellsOfRow = refTable.rows[i].getElementsByTagName('td');
+            var check = cellsOfRow[0];
+            if(check.firstChild.checked === true){
+                console.log(check.firstChild.id);
+                enviarIdAutorizado(check.firstChild.id,tipo);
+            }
+            cargarPendientes();
+        }
+    }
+}
+
+function mandarAutorizacionOferente(){
+    var refTable = document.getElementById("bodyAutorizarO");
+    var tipo ="2";//Tipo de autorizacion para oferentes
+    if(refTable){
+        for(var i = 0; i < refTable.rows.length; i++){
+            var cellsOfRow = refTable.rows[i].getElementsByTagName('td');
+            var check = cellsOfRow[0];
+            if(check.firstChild.checked === true){
+                console.log(check.firstChild.id);
+                enviarIdAutorizado(check.firstChild.id,tipo);
+            }
+            cargarOferentesPendientes();
+        }
+    }
+}
+
+function procesarDatos(texto) {
+    console.log(texto);
+    var refInfo = document.getElementById('info');
+    if (refInfo) {
+        refInfo.innerHTML = "Via POST Request: " + texto;
+    }
+}
+
+function enviarIdAutorizado(num, tipo) {
+
+    var xobj = new XMLHttpRequest();
+    xobj.open('POST', 'ServicioAutorizar', true);
+
+    var dato1 = num;
+
+    var datos = new FormData();
+    datos.append('num', dato1);
+    datos.append('tipo',tipo);
+
+    xobj.onreadystatechange = function () {
+        if (xobj.readyState === 4 && xobj.status === 200) {
+            procesarDatos(xobj.responseText);
+        }
+    };
+    var txtDatos = "";
+    for (var k of datos.keys()) {
+        if (!(!txtDatos || 0 === txtDatos.length)) {
+            txtDatos += "&";
+        }
+        txtDatos += k + "=" + datos.get(k);
+    }
+    xobj.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xobj.send(txtDatos);
+    return false;
 }

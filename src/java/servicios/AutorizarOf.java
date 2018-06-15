@@ -8,17 +8,17 @@ package servicios;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
  * @author krist
  */
-@WebServlet(name = "ServicioAdministrador3", urlPatterns = {"/ServicioAdministrador3"})
-public class ServicioAdministrador3 extends HttpServlet {
+public class AutorizarOf extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,33 +31,28 @@ public class ServicioAdministrador3 extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int opcion = 0;
-        if (modelo.Elementos.administrador_autorizando == 1) {
-            try {
-                opcion = Integer.parseInt(request.getParameter("id_empresa"));
-            } catch (Exception ex) {
-                opcion = 0;
-                response.sendRedirect("Administrador.jsp");
+        response.setContentType("application/json;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            JSONObject obj = new JSONObject();//Crea un objeto JSON
+            JSONArray opciones = new JSONArray();//Array del Objeto JSON para provincias
+            
+            
+            for(int i = 0; i < modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().size(); i++){
+                JSONObject opc = new JSONObject();//Objetos JSON dentro del Array Opciones
+                opc.put("id", modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().get(i).getId_oferente());
+                opc.put("nombre", modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().get(i).getNombre_oferente());
+                opc.put("apellido", modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().get(i).getPrimer_apellido());
+                opc.put("nacionalidad", modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().get(i).getNacionalidad());
+                opc.put("telefono", modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().get(i).getTelefono());
+                opc.put("correo", modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().get(i).getCorreo());
+                opc.put("residencia", modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().get(i).getResidencia());
+                opc.put("estado", modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().get(i).getEstado());
+                opc.put("usuario", modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().get(i).getUsuario());
+                opciones.put(opc);
             }
-            if (opcion != 0) {
-                modelo.DAO.ConjuntoEmpresas.obtenerInstancia().autorizar(opcion, 2);
-                modelo.Elementos.administrador_autorizando=0;
-                response.sendRedirect("Administrador.jsp");
-            }
-        } else if (modelo.Elementos.administrador_autorizando == 2) {
-            try {
-                opcion = Integer.parseInt(request.getParameter("id_oferente"));
-            } catch (Exception ex) {
-                opcion = 0;
-                response.sendRedirect("Administrador.jsp");
-            }
-            if (opcion != 0) {
-                modelo.DAO.ConjuntoOferentes.obtenerInstancia().autorizar(opcion, 2);
-                modelo.Elementos.administrador_autorizando=0;
-                response.sendRedirect("Administrador.jsp");
-            }
-        } else {
-            response.sendRedirect("Administrador.jsp");
+            
+            obj.put("opciones", opciones);
+            out.println(obj);//Representacion del objeto usando un formato JSON
         }
     }
 

@@ -17,26 +17,18 @@
             <header></header>
             <div id="placa">
                 <form id="formulario" action="RegistroCategoria" method="GET">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th colspan="2">Registro de nueva Categoria</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="etiqueta">Nombre:</td>
-                                <td class="campo">
-                                    <input type="text" id="nombreC" name="nombreC" required />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <input type="submit" value="Crear" />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <section>
+                        
+                    </section>
+                    <section>
+                        
+                    </section>
+                    <section>
+                        
+                    </section>
+                    <section>
+                        
+                    </section>
                 </form>
             </div>
             <footer></footer>

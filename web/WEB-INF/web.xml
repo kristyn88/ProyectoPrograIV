@@ -12,6 +12,22 @@
         <servlet-name>Registro1</servlet-name>
         <servlet-class>servicios.Registro1</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Autorizar</servlet-name>
+        <servlet-class>servicios.Autorizar</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AutorizarEmpresa</servlet-name>
+        <servlet-class>servicios.ServicioAutorizar</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AutorizarOferente</servlet-name>
+        <servlet-class>servicios.AutorizarOf</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AutorizarOf</servlet-name>
+        <servlet-class>servicios.AutorizarOf</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistroOferente</servlet-name>
         <url-pattern>/RegistroOferente</url-pattern>
@@ -23,6 +39,22 @@
     <servlet-mapping>
         <servlet-name>Registro1</servlet-name>
         <url-pattern>/Registro1</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Autorizar</servlet-name>
+        <url-pattern>/Autorizar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AutorizarEmpresa</servlet-name>
+        <url-pattern>/AutorizarEmpresa</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AutorizarOferente</servlet-name>
+        <url-pattern>/AutorizarOferente</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AutorizarOf</servlet-name>
+        <url-pattern>/AutorizarOf</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
