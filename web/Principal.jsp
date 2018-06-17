@@ -115,6 +115,7 @@
                             <button class="icon"><i class="fa fa-search"></i></button>
                         </div>
                     </div>
+                </div>
                 </center>
                     <table>
                         <thead>
