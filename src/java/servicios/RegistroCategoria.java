@@ -6,20 +6,22 @@
 package servicios;
 
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
+import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.Categoria;
-import modelo.DAO.ConjuntoCategorias;
-import modelo.DAO.ConjuntoPuestos;
+import modelo.SubCategoria;
+import org.json.JSONObject;
 
 /**
  *
  * @author krist
  */
+//Este servicio va a registrar categorias y subcategorias de parte del administrador...
 @WebServlet(name = "RegistroCategoria", urlPatterns = {"/RegistroCategoria"})
 public class RegistroCategoria extends HttpServlet {
 
@@ -34,21 +36,43 @@ public class RegistroCategoria extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String nombre = request.getParameter("nombreC");
-        int id_categoria = (ConjuntoCategorias.obtenerInstancia().obtenerMayorId() + 1);
-        Categoria c = new Categoria(id_categoria, nombre);
-        
-        ConjuntoCategorias.obtenerInstancia().agregar(c);
-        
-        if(modelo.Elementos.administrador_trabajando!=1){
-        RequestDispatcher rd;
-        rd = request.getRequestDispatcher("/CrearRequerimiento.jsp");
-        request.setAttribute("id_categoria", id_categoria);//Ultima Categoria Creada
-        rd.forward(request, response);
-        }else{
-            response.sendRedirect("Administrador.jsp");
-        }
+       response.setContentType("application/json;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
 
+                       
+            JSONObject r = new JSONObject();
+            Enumeration<String> e = request.getParameterNames();
+            
+            while (e.hasMoreElements()) {
+                String nombre = e.nextElement();
+                //Se agrega a la bd
+                int tipo = Integer.parseInt(request.getParameter("tipo"));
+                if(tipo==1){//Agrega la nueva categoria
+                String categoria = request.getParameter("categoria");
+                int id_categoria = modelo.DAO.ConjuntoCategorias.obtenerInstancia().obtenerMayorId()+1;
+                    modelo.DAO.ConjuntoCategorias.obtenerInstancia().agregar(new Categoria(id_categoria, categoria));
+                }else if (tipo==2){
+                    String subCategoria = request.getParameter("subcategoria");
+                    int categoria = Integer.parseInt(request.getParameter("categoria"));
+                    int idSUb = modelo.DAO.ConjuntoSubCategorias.obtenerInstancia().obtenerMayorId()+1;
+                    modelo.DAO.ConjuntoSubCategorias.obtenerInstancia().agregar(new SubCategoria(idSUb, subCategoria, categoria));
+                }else if(tipo==3){//Viene el id de desactivar puesto
+                    //Desactivar puesto
+                    int idPuesto = Integer.parseInt(request.getParameter("idPuesto"));
+                    modelo.DAO.ConjuntoPuestos.obtenerInstancia().desactivarPuesto(idPuesto);
+                }
+                r.put(nombre, request.getParameter(nombre));
+                break;
+            }
+           
+            out.print(r);
+            
+            
+        }
+        try (PrintWriter out2 = new PrintWriter(response.getOutputStream())) {
+            out2.println("Lo que quieras escribir");
+        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

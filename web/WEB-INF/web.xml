@@ -28,6 +28,18 @@
         <servlet-name>AutorizarOf</servlet-name>
         <servlet-class>servicios.AutorizarOf</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>InfoCategoriasSub</servlet-name>
+        <servlet-class>servicios.InfoCategoriasSub</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>servicioCarrucel</servlet-name>
+        <servlet-class>servicios.servicioCarrucel</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServicioPuestos</servlet-name>
+        <servlet-class>servicios.ServicioPuestos</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistroOferente</servlet-name>
         <url-pattern>/RegistroOferente</url-pattern>
@@ -55,12 +67,18 @@
     <servlet-mapping>
         <servlet-name>AutorizarOf</servlet-name>
         <url-pattern>/AutorizarOf</url-pattern>
-        <servlet-name>ServicioCategorias</servlet-name>
-        <url-pattern>/ServicioCategorias</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServicioSubCategorias</servlet-name>
-        <url-pattern>/ServicioSubCategorias</url-pattern>
+        <servlet-name>InfoCategoriasSub</servlet-name>
+        <url-pattern>/InfoCategoriasSub</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>servicioCarrucel</servlet-name>
+        <url-pattern>/servicioCarrucel</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServicioPuestos</servlet-name>
+        <url-pattern>/ServicioPuestos</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

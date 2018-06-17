@@ -34,7 +34,7 @@ public class Autorizar extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             JSONObject obj = new JSONObject();//Crea un objeto JSON
-            JSONArray opciones = new JSONArray();//Array del Objeto JSON para provincias
+            JSONArray opciones = new JSONArray();//Array del Objeto JSON
             
             
             for(int i = 0; i < modelo.DAO.ConjuntoEmpresas.obtenerInstancia().obtenerEmpresasPendientes().size(); i++){

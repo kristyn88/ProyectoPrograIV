@@ -7,10 +7,13 @@ package servicios;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.Categoria;
+import modelo.SubCategoria;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -18,7 +21,7 @@ import org.json.JSONObject;
  *
  * @author krist
  */
-public class AutorizarOf extends HttpServlet {
+public class ServicioPuestos extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,22 +38,30 @@ public class AutorizarOf extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             JSONObject obj = new JSONObject();//Crea un objeto JSON
             JSONArray opciones = new JSONArray();//Array del Objeto JSON
+            //int idEmpresa = Integer.parseInt((String)request.getSession(true).getAttribute("id_empresa"));
             
+            int idEmpresa = modelo.Elementos.id_Empresa_Requerida;
+            String tipoP, estadoP;
             
-            for(int i = 0; i < modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().size(); i++){
+            for (int i = 0; i < modelo.DAO.ConjuntoPuestos.obtenerInstancia().obtenerPuestosDeEmpresa(idEmpresa).size(); i++) {
                 JSONObject opc = new JSONObject();//Objetos JSON dentro del Array Opciones
-                opc.put("id", modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().get(i).getId_oferente());
-                opc.put("nombre", modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().get(i).getNombre_oferente());
-                opc.put("apellido", modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().get(i).getPrimer_apellido());
-                opc.put("nacionalidad", modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().get(i).getNacionalidad());
-                opc.put("telefono", modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().get(i).getTelefono());
-                opc.put("correo", modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().get(i).getCorreo());
-                opc.put("residencia", modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().get(i).getResidencia());
-                opc.put("estado", modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().get(i).getEstado());
-                opc.put("usuario", modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().get(i).getUsuario());
+                opc.put("id", modelo.DAO.ConjuntoPuestos.obtenerInstancia().obtenerPuestosDeEmpresa(idEmpresa).get(i).getId_puesto());
+                opc.put("nombre", modelo.DAO.ConjuntoPuestos.obtenerInstancia().obtenerPuestosDeEmpresa(idEmpresa).get(i).getNombre_puesto());
+                opc.put("descripcion", modelo.DAO.ConjuntoPuestos.obtenerInstancia().obtenerPuestosDeEmpresa(idEmpresa).get(i).getDescripcion());
+                opc.put("salario", modelo.DAO.ConjuntoPuestos.obtenerInstancia().obtenerPuestosDeEmpresa(idEmpresa).get(i).getSalario_ofrecido());
+               
+                if(modelo.DAO.ConjuntoPuestos.obtenerInstancia().obtenerPuestosDeEmpresa(idEmpresa).get(i).getTipo_publicacion()==0){
+                    tipoP = "Publico";
+                }else{tipoP = "Privado";}
+                opc.put("tipoP", tipoP);
+                
+                if(modelo.DAO.ConjuntoPuestos.obtenerInstancia().obtenerPuestosDeEmpresa(idEmpresa).get(i).getEstado_publicacion()==0){
+                    estadoP = "Disponible";
+                }else{estadoP = "Ocupado";}
+                opc.put("estadoP", estadoP);
                 opciones.put(opc);
             }
-            
+
             obj.put("opciones", opciones);
             out.println(obj);//Representacion del objeto usando un formato JSON
         }

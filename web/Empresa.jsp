@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<!DOCTYPE html>zzzz
 <html>
     <head>
         <meta charset=UTF-8">
@@ -38,7 +38,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <a href="prueba.jsp"><button class="submit">Editar Puesto</button></a>
+                                    <a href="desactivarPuesto.jsp"><button class="submit">Editar Puesto</button></a>
                                 </td>
                             </tr>
                             <tr>

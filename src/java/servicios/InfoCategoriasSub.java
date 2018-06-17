@@ -8,6 +8,7 @@ package servicios;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +19,8 @@ import org.json.JSONObject;
  *
  * @author krist
  */
-public class AutorizarOf extends HttpServlet {
+@WebServlet(name = "InfoCategoriasSub", urlPatterns = {"/InfoCategoriasSub"})
+public class InfoCategoriasSub extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,24 +36,27 @@ public class AutorizarOf extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             JSONObject obj = new JSONObject();//Crea un objeto JSON
-            JSONArray opciones = new JSONArray();//Array del Objeto JSON
+            JSONArray opciones = new JSONArray();//Array del Objeto JSON para provincias
+            JSONArray opciones2 = new JSONArray();//Array del Objeto JSON para provincias
             
             
-            for(int i = 0; i < modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().size(); i++){
+            for(int i = 0; i < modelo.DAO.ConjuntoCategorias.obtenerInstancia().obtenerCategorias().size(); i++){//JSON para categorias
                 JSONObject opc = new JSONObject();//Objetos JSON dentro del Array Opciones
-                opc.put("id", modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().get(i).getId_oferente());
-                opc.put("nombre", modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().get(i).getNombre_oferente());
-                opc.put("apellido", modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().get(i).getPrimer_apellido());
-                opc.put("nacionalidad", modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().get(i).getNacionalidad());
-                opc.put("telefono", modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().get(i).getTelefono());
-                opc.put("correo", modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().get(i).getCorreo());
-                opc.put("residencia", modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().get(i).getResidencia());
-                opc.put("estado", modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().get(i).getEstado());
-                opc.put("usuario", modelo.DAO.ConjuntoOferentes.obtenerInstancia().obtenerOferentesPendientes().get(i).getUsuario());
+                opc.put("id", modelo.DAO.ConjuntoCategorias.obtenerInstancia().obtenerCategorias().get(i).getId_categoria());
+                opc.put("nombre", modelo.DAO.ConjuntoCategorias.obtenerInstancia().obtenerCategorias().get(i).getNombre_categoria());
                 opciones.put(opc);
             }
             
+            for(int i = 0; i < modelo.DAO.ConjuntoSubCategorias.obtenerInstancia().obtenerSubCategorias().size(); i++){//JSON para categorias
+                JSONObject opc = new JSONObject();//Objetos JSON dentro del Array Opciones
+                opc.put("id", modelo.DAO.ConjuntoSubCategorias.obtenerInstancia().obtenerSubCategorias().get(i).getId_subCategoria());
+                opc.put("nombre", modelo.DAO.ConjuntoSubCategorias.obtenerInstancia().obtenerSubCategorias().get(i).getNombre_subCategoria());
+                opc.put("categoriaSub", modelo.DAO.ConjuntoSubCategorias.obtenerInstancia().obtenerSubCategorias().get(i).getCategoria());
+                opciones2.put(opc);
+            }
+            
             obj.put("opciones", opciones);
+            obj.put("opciones2", opciones2);
             out.println(obj);//Representacion del objeto usando un formato JSON
         }
     }

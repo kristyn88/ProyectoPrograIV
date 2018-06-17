@@ -16,22 +16,11 @@
         <script src="js/loadJSON.js" type="text/javascript"></script>
         <script src="js/scripts.js" type="text/javascript"></script>
     </head>
-    <body onload="cargarInfoCatYSubCat();">
+    <body onload="cargarPuestosEmpresa();">
         <div id="wrapper">
             <header></header>
             <div id="placa">
                 <form id="form1" action="#" method="POST" enctype="application/x-www-form-urlencoded">
-                    <section>
-                        <table>
-                            <tr>
-                                <td>Categoria:&nbsp;</td>
-                                <td>
-                                    <input id="categoria" name="categoria" type="text"/><br/>
-                                </td>
-                            </tr>
-                        </table>
-                        <button type="button" onclick="registrarCategoria();">Enviar</button>
-                    </section>
                     <section>
                     <table>
                         <thead>
@@ -40,12 +29,9 @@
                             <tr>
                                 <td>SubCategoria:&nbsp;</td>
                                 <td>
-                                    <input id="subcategoria" name="subcategoria" type="text"/><br/>
+                                    <select id="seleccionarPuesto"></select>
                                 </td>
-                                <td>
-                                    <select id="seleccionarCategoria"></select>
-                                </td>
-                                <td><button type="button" onclick="registrarSubCategoria();">Crear SUbCategoria</button></td>
+                                <td><button type="button" onclick="desactivarPuesto();">Desactivar Puesto</button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -55,23 +41,16 @@
                         <thead>
                         <th>Id</th>
                         <th>Nombre</th>
+                        <th>Descripcion</th>
+                        <th>Salario</th>
+                        <th>Tipo</th>
+                        <th>Estado</th>
                         </thead>
-                        <tbody id="mostrarCategorias">
+                        <tbody id="mostrarPuestos">
                         </tbody>
                     </table>
                     </section>
-                    
-                    <section>
-                        <table id="tablaFormulario">
-                        <thead>
-                        <th>Id</th>
-                        <th>Nombre</th>
-                        <th>Categoria Perteneciente</th>
-                        </thead>
-                        <tbody id="mostrarSubCategorias">
-                        </tbody>
-                    </table>
-                    </section>
+
                     <span id="info">
                             <%
                                 JSONObject r = new JSONObject();
